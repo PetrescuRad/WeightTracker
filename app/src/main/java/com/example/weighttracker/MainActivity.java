@@ -23,6 +23,7 @@ import android.widget.EditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -57,17 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 } catch (NumberFormatException e) {
                     System.out.println(e.getMessage());
                 }
-                JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("key", inputInt);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String jsonString = jsonObject.toString();
-                try {
-                    FileOutputStream fos = openFileOutput("weightData.json", Context.MODE_PRIVATE);
+                    System.out.println(inputInt);
+                    FileOutputStream fos = openFileOutput("weightData", Context.MODE_APPEND);
                     OutputStreamWriter osw = new OutputStreamWriter(fos);
-                    osw.write(jsonString);
+                    osw.write(String.valueOf(inputInt));  // Convert the integer to a string
                     osw.close();
                 } catch (IOException e) {
                     e.printStackTrace();
